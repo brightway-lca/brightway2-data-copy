@@ -19,12 +19,12 @@ jobs:
 
   - bash: |
       source activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION peewee brightway2 pytest pytest-azurepipelines coverage
     displayName: Install Anaconda packages
 
   - bash: |
       source activate bw2
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
 
 - job:
@@ -45,14 +45,16 @@ jobs:
 
   - bash: |
       source activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov=2.6.0
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION peewee brightway2 "pytest>3.2.2" pytest-azurepipelines coverage pathlib
     displayName: Install Anaconda packages
 
   - bash: |
       source activate bw2
       pwd
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
+    env:
+      PYTHONIOENCODING: 'utf-8'
 
 - job:
   displayName: macOS-10.14-38
@@ -74,12 +76,12 @@ jobs:
 
   - bash: |
       source activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION peewee brightway2 pytest pytest-azurepipelines coverage
     displayName: Install Anaconda packages
 
   - bash: |
       source activate bw2
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
 
 - job:
@@ -100,13 +102,15 @@ jobs:
 
   - bash: |
       source activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov=2.6.0
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=$PYTHON_VERSION peewee brightway2 "pytest>3.2.2" pytest-azurepipelines coverage pathlib
     displayName: Install Anaconda packages
 
   - bash: |
       source activate bw2
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
+    env:
+      PYTHONIOENCODING: 'utf-8'
 
 - job:
   displayName: vs2017-win2016-38
@@ -128,12 +132,12 @@ jobs:
 
   - script: |
       call activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=%PYTHON_VERSION% pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov win32
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=%PYTHON_VERSION% peewee brightway2 pytest pytest-azurepipelines coverage pywin32
     displayName: Install Anaconda packages
 
   - script: |
       call activate bw2
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
 
 - job:
@@ -154,10 +158,12 @@ jobs:
 
   - script: |
       call activate bw2
-      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=%PYTHON_VERSION% pytest peewee brightway2 pytest pytest-azurepipelines pytest-cov=2.6.0 win32
+      conda install --yes --quiet -c defaults -c conda-forge -c cmutel -c haasad --name bw2 python=%PYTHON_VERSION% peewee brightway2 "pytest>3.2.2" pytest-azurepipelines coverage pywin32 pathlib
     displayName: Install Anaconda packages
 
   - script: |
       call activate bw2
-      pytest --cov=bw2data
+      coverage run --source=bw2data -m pytest
     displayName: pytest
+    env:
+      PYTHONIOENCODING: 'utf-8'
